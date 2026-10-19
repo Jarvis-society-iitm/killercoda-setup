@@ -84,16 +84,9 @@ unlock_environment() {
 verify_credentials() {
     local student_id="$1"
     local lab_slug="$2"
-    local auth_token="$3"
 
     if [ "$MOCK_API" = "true" ]; then
-        # Mock API behavior
-        if [ "$auth_token" = "INVALID" ] || [ -z "$auth_token" ]; then
-            echo '{"success": false, "message": "Invalid credentials or unauthorized student."}'
-            return 1
-        fi
-
-        if [ "$student_id" = "completed_user" ] || [ "$auth_token" = "PRACTICE" ]; then
+        if [ "$student_id" = "completed_user" ]; then
             echo '{"success": true, "mode": "practice", "message": "Lab previously completed. Entering Practice Mode (no repeat XP).", "session_token": "mock-token-practice-123"}'
             return 0
         fi
@@ -107,8 +100,7 @@ verify_credentials() {
     payload=$(jq -n \
         --arg sid "$student_id" \
         --arg slug "$lab_slug" \
-        --arg token "$auth_token" \
-        '{student_id: $sid, lab_slug: $slug, auth_token: $token}')
+        '{student_id: $sid, lab_slug: $slug}')
 
     local response
     response=$(curl -s -w "\n%{http_code}" -X POST \
@@ -156,29 +148,17 @@ run_gate() {
     fi
     echo ""
 
-    echo -e "${WHITE}To unlock your terminal session, please authenticate with your Jarvis Club credentials.${NC}"
-    echo -e "${WHITE}You can retrieve your Passkey from: ${CYAN}https://jarvis-linux-club.vercel.app/dashboard${NC}"
+    echo -e "${WHITE}To unlock your terminal session, please authenticate with your IITM Student Roll Number.${NC}"
     echo ""
 
     local student_id=""
-    local auth_token=""
 
     while [ -z "$student_id" ]; do
-        echo -en "${BOLD}${CYAN}» Enter your Student Roll / ID (e.g., 21f1001230): ${NC}"
+        echo -en "${BOLD}${CYAN}» Enter your Student Roll / ID (e.g., 25f3002130): ${NC}"
         read -r student_id
         student_id=$(echo "$student_id" | tr -d '[:space:]')
         if [ -z "$student_id" ]; then
             echo -e "${RED}[!] Student ID cannot be empty.${NC}"
-        fi
-    done
-
-    while [ -z "$auth_token" ]; do
-        echo -en "${BOLD}${CYAN}» Enter your Verification Passkey / Token: ${NC}"
-        read -rs auth_token
-        echo ""
-        auth_token=$(echo "$auth_token" | tr -d '[:space:]')
-        if [ -z "$auth_token" ]; then
-            echo -e "${RED}[!] Auth Token cannot be empty.${NC}"
         fi
     done
 
@@ -190,7 +170,7 @@ run_gate() {
     response_file=$(mktemp)
     
     (
-        verify_credentials "$student_id" "$lab_slug" "$auth_token" > "$response_file"
+        verify_credentials "$student_id" "$lab_slug" > "$response_file"
     ) &
     local curl_pid=$!
     spinner "$curl_pid"
