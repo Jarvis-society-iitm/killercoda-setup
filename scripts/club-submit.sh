@@ -111,7 +111,7 @@ submit_completion() {
 
     if [ "$MOCK_API" = "true" ]; then
         sleep 1
-        echo '{"success": true, "xp_awarded": 150, "total_xp": 450, "rank": 12, "message": "Congratulations! Lab completed successfully."}' > "$response_file"
+        echo '{"success": true, "xp_awarded": 5, "total_xp": 450, "rank": 12, "message": "Congratulations! Lab completed successfully."}' > "$response_file"
         exit_code=0
     else
         local payload
