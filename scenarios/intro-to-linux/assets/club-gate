@@ -84,6 +84,7 @@ unlock_environment() {
 verify_credentials() {
     local student_id="$1"
     local lab_slug="$2"
+    local auth_token="$3"
 
     if [ "$MOCK_API" = "true" ]; then
         if [ "$student_id" = "completed_user" ]; then
@@ -100,7 +101,8 @@ verify_credentials() {
     payload=$(jq -n \
         --arg sid "$student_id" \
         --arg slug "$lab_slug" \
-        '{student_id: $sid, lab_slug: $slug}')
+        --arg token "$auth_token" \
+        '{student_id: $sid, lab_slug: $slug, auth_token: $token}')
 
     local response
     response=$(curl -s -w "\n%{http_code}" -X POST \
@@ -148,10 +150,12 @@ run_gate() {
     fi
     echo ""
 
-    echo -e "${WHITE}To unlock your terminal session, please authenticate with your IITM Student Roll Number.${NC}"
+    echo -e "${WHITE}To unlock your terminal session, please authenticate with your Jarvis Club credentials.${NC}"
+    echo -e "${WHITE}You can find your Passkey on your dashboard: ${CYAN}https://jarvis-linux-club.vercel.app/labs${NC}"
     echo ""
 
     local student_id=""
+    local auth_token=""
 
     while [ -z "$student_id" ]; do
         echo -en "${BOLD}${CYAN}» Enter your Student Roll / ID (e.g., 25f3002130): ${NC}"
@@ -159,6 +163,15 @@ run_gate() {
         student_id=$(echo "$student_id" | tr -d '[:space:]')
         if [ -z "$student_id" ]; then
             echo -e "${RED}[!] Student ID cannot be empty.${NC}"
+        fi
+    done
+
+    while [ -z "$auth_token" ]; do
+        echo -en "${BOLD}${CYAN}» Enter your Lab Passkey (e.g. JRV-A1B2C3D4): ${NC}"
+        read -r auth_token
+        auth_token=$(echo "$auth_token" | tr -d '[:space:]')
+        if [ -z "$auth_token" ]; then
+            echo -e "${RED}[!] Passkey cannot be empty.${NC}"
         fi
     done
 
@@ -170,7 +183,7 @@ run_gate() {
     response_file=$(mktemp)
     
     (
-        verify_credentials "$student_id" "$lab_slug" > "$response_file"
+        verify_credentials "$student_id" "$lab_slug" "$auth_token" > "$response_file"
     ) &
     local curl_pid=$!
     spinner "$curl_pid"
