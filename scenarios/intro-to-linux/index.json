@@ -1,0 +1,37 @@
+{
+  "title": "Introduction to Linux & Systems",
+  "description": "Learn the core essentials of Linux navigation, file permissions, and environment variables. Verified by IITM Jarvis Linux Club.",
+  "difficulty": "Beginner",
+  "time": "20 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Welcome & Club Authentication",
+        "text": "step1.md",
+        "verify": "step1-verify.sh"
+      },
+      {
+        "title": "File Operations & Permissions",
+        "text": "step2.md",
+        "verify": "step2-verify.sh"
+      },
+      {
+        "title": "Environment Variables & Scripts",
+        "text": "step3.md",
+        "verify": "step3-verify.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh",
+      "foreground": "foreground.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu:2204"
+  }
+}
+

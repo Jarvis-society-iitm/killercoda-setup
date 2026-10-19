@@ -1,0 +1,14 @@
+# Dependencies & artifacts
+node_modules/
+.npm
+*.log
+
+# Session state & temporary files
+/tmp/test_jarvis/
+/tmp/.jarvis*
+.jarvis/
+
+# System files
+.DS_Store
+Thumbs.db
+
