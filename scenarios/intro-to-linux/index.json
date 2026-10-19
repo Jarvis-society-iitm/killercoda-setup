@@ -32,6 +32,20 @@
   },
   "backend": {
     "imageid": "ubuntu"
+  },
+  "assets": {
+    "host01": [
+      {
+        "file": "club-gate",
+        "target": "/usr/local/bin/",
+        "chmod": "+x"
+      },
+      {
+        "file": "club-submit",
+        "target": "/usr/local/bin/",
+        "chmod": "+x"
+      }
+    ]
   }
 }
 
