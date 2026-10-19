@@ -174,7 +174,7 @@ You can run full end-to-end tests without connecting to production:
 node mock-server/server.js
 ```
 The mock server runs at `http://localhost:4000` with test accounts:
-- `21f1001230` / `valid-token-123` (Active student)
+- `25f3002130` / `valid-token-123` (Active student)
 - `22f2000456` / `valid-token-456` (Practice mode student)
 
 ### 3. Test Scripts in Mock Mode
