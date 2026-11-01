@@ -1,30 +1,21 @@
 #!/usr/bin/env bash
 # Step 2 Verification
 
-# Check gate
 if [ ! -f /tmp/.jarvis_unlocked ]; then
-    echo "Terminal is not authenticated."
+    echo "Terminal is not authenticated. Please complete authentication in Step 1."
     exit 1
 fi
 
-FILE="/root/workspace/secret.txt"
-if [ ! -f "$FILE" ]; then
-    echo "File $FILE does not exist."
+if [ ! -f /tmp/nav_done.txt ]; then
+    echo "Navigation marker /tmp/nav_done.txt not found. Did you run 'pwd > /tmp/nav_done.txt' in your home folder?"
     exit 1
 fi
 
-CONTENT=$(cat "$FILE" 2>/dev/null | tr -d '[:space:]')
-if [ "$CONTENT" != "JarvisLinuxRocks" ]; then
-    echo "File content is incorrect. Expected 'JarvisLinuxRocks'."
+RECORDED_PATH=$(cat /tmp/nav_done.txt 2>/dev/null | tr -d '[:space:]')
+if [ "$RECORDED_PATH" != "/root" ] && [ "$RECORDED_PATH" != "$HOME" ]; then
+    echo "Expected /tmp/nav_done.txt to contain home directory path (/root or $HOME), but found '$RECORDED_PATH'."
     exit 1
 fi
 
-PERMS=$(stat -c "%a" "$FILE" 2>/dev/null)
-if [ "$PERMS" != "600" ]; then
-    echo "File permissions are $PERMS, expected 600."
-    exit 1
-fi
-
-echo "Step 2 validated successfully."
+echo "Hands-On Practice 1: Navigation successfully verified!"
 exit 0
-
