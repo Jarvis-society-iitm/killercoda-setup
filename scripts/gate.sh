@@ -155,9 +155,11 @@ run_gate() {
     local student_id=""
     local auth_token=""
 
+    # Flush any stray newlines or buffered keystrokes from terminal initialization
+    while read -r -t 0.1 -n 10000; do :; done 2>/dev/null || true
+
     while [ -z "$student_id" ]; do
-        echo -en "${BOLD}${CYAN}» Enter your Student Roll / ID (e.g., 25f3002130): ${NC}"
-        read -r student_id
+        read -r -p "$(echo -e "${BOLD}${CYAN}» Enter your Student Roll / ID (e.g., 25f3002130): ${NC}")" student_id
         student_id=$(echo "$student_id" | tr -d '[:space:]')
         if [ -z "$student_id" ]; then
             echo -e "${RED}[!] Student ID cannot be empty.${NC}"
@@ -165,8 +167,7 @@ run_gate() {
     done
 
     while [ -z "$auth_token" ]; do
-        echo -en "${BOLD}${CYAN}» Enter your Lab Passkey (e.g. JRV-A1B2C3D4): ${NC}"
-        read -r auth_token
+        read -r -p "$(echo -e "${BOLD}${CYAN}» Enter your Lab Passkey (e.g. JRV-A1B2C3D4): ${NC}")" auth_token
         auth_token=$(echo "$auth_token" | tr -d '[:space:]')
         if [ -z "$auth_token" ]; then
             echo -e "${RED}[!] Passkey cannot be empty.${NC}"
