@@ -145,8 +145,6 @@ run_gate() {
     echo -e "${CYAN}Target Lab:${NC} ${WHITE}${BOLD}${lab_slug}${NC}"
     if [ "$MOCK_API" = "true" ]; then
         echo -e "${YELLOW}>> MOCK_API=true is enabled (Offline/Testing Mode) <<${NC}"
-    else
-        echo -e "${BLUE}Endpoint:${NC} ${API_URL}/api/labs/verify"
     fi
     echo ""
 
