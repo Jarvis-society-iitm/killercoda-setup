@@ -8,8 +8,8 @@ In this challenge, commands are hidden by default so you can practice recalling 
 
 ### 🏆 The Checklist & Challenge:
 
-1. **Switch to your home directory**:
-   Before generating project files, ensure you are in your home folder (`~` or `/root`).
+### Task 1: Switch to your home directory
+Before generating project files, ensure you are in your home folder (`~` or `/root`).
 
 <details>
 <summary>▶ Show Answer</summary>
@@ -21,8 +21,8 @@ cd ~
 
 </details>
 
-2. **Processor Diagnostics**:
-   Run `lscpu` and redirect the full output into `system_specs.txt` using `>`.
+### Task 2: Processor Diagnostics
+Run `lscpu` and redirect the full output into `system_specs.txt` using `>`.
 
 <details>
 <summary>▶ Show Answer</summary>
@@ -34,8 +34,8 @@ lscpu > system_specs.txt
 
 </details>
 
-3. **Memory Diagnostics**:
-   Run `free -h` and **append** the output to `system_specs.txt` using `>>` (be careful not to use `>` which would overwrite and delete your CPU details!).
+### Task 3: Memory Diagnostics
+Run `free -h` and **append** the output to `system_specs.txt` using `>>` (be careful not to use `>` which would overwrite and delete your CPU details!).
 
 <details>
 <summary>▶ Show Answer</summary>
@@ -47,8 +47,8 @@ free -h >> system_specs.txt
 
 </details>
 
-4. **Directory Processing Pipeline**:
-   Build a pipeline that lists all files in `/` in long format including hidden items (`ls -la /`), sorts them alphabetically (`sort`), and isolates only the top 5 results (`head -n 5`).
+### Task 4: Directory Processing Pipeline
+Build a pipeline that lists all files in `/` in long format including hidden items (`ls -la /`), sorts them alphabetically (`sort`), and isolates only the top 5 results (`head -n 5`).
 
 <details>
 <summary>▶ Show Answer</summary>
@@ -68,8 +68,8 @@ drwxr-xr-x  14 root root  2880 ... dev
 
 </details>
 
-5. **Append Pipeline Output to Your Dossier**:
-   Execute the exact same pipeline and **append** its results to `system_specs.txt`.
+### Task 5: Append Pipeline Output to Your Dossier
+Execute the exact same pipeline and **append** its results to `system_specs.txt`.
 
 <details>
 <summary>▶ Show Answer</summary>
@@ -81,8 +81,8 @@ ls -la / | sort | head -n 5 >> system_specs.txt
 
 </details>
 
-6. **Inspect Final Dossier**:
-   Inspect `system_specs.txt` to verify all three sections were properly collected together:
+### Task 6: Inspect Final Dossier
+Inspect `system_specs.txt` to verify all three sections were properly collected together:
 
 <details>
 <summary>▶ Show Answer</summary>
@@ -105,8 +105,8 @@ drwxr-xr-x ... ..
 
 </details>
 
-7. **Hardware Snapshot Challenge Preview**:
-   As outlined in Slide 12 for the upcoming Weekly Challenge, assemble `~/system_snapshot.txt` block-by-block using sequential appending (`uname -a`, `uptime`, `df -h /`, and `free -h`).
+### Task 7: Hardware Snapshot Challenge Preview
+As outlined in Slide 12 for the upcoming Weekly Challenge, assemble `~/system_snapshot.txt` block-by-block using sequential appending (`uname -a`, `uptime`, `df -h /`, and `free -h`).
 
 <details>
 <summary>▶ Show Answer</summary>
