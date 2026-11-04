@@ -233,6 +233,33 @@ static int do_gate(int argc, char **argv) {
     }
 }
 
+static int do_status(void) {
+    if (access(GATE_FILE, F_OK) == 0 && access(SESSION_FILE, F_OK) == 0) {
+        char *session_json = read_file_contents(SESSION_FILE);
+        if (session_json) {
+            char *student_id = extract_json_val(session_json, "student_id");
+            char *lab_slug = extract_json_val(session_json, "lab_slug");
+            char *mode = extract_json_val(session_json, "mode");
+
+            printf("\n" GREEN BOLD "==============================================================\n" NC);
+            printf(GREEN BOLD "             ACTIVE & AUTHENTICATED LAB SESSION               \n" NC);
+            printf(GREEN BOLD "==============================================================\n" NC);
+            printf("  " WHITE "• Student ID:   " CYAN BOLD "%s\n" NC, student_id ? student_id : "unknown");
+            printf("  " WHITE "• Lab Scenario: " CYAN BOLD "%s\n" NC, lab_slug ? lab_slug : "unknown");
+            printf("  " WHITE "• Session Mode: " YELLOW BOLD "%s\n" NC, mode ? mode : "active");
+            printf("  " WHITE "• Gate Status:  " GREEN BOLD "UNLOCKED\n" NC);
+            printf(GREEN BOLD "==============================================================\n\n" NC);
+
+            free(student_id); free(lab_slug); free(mode); free(session_json);
+            return 0;
+        }
+    }
+
+    printf("\n" RED BOLD "[STATUS] Session is locked or unauthenticated.\n" NC);
+    printf(WHITE "To authenticate, execute: " CYAN BOLD "club-gate [lab_slug]\n\n" NC);
+    return 1;
+}
+
 static int do_submit(void) {
     if (access(GATE_FILE, F_OK) != 0 || access(SESSION_FILE, F_OK) != 0) {
         printf(RED BOLD "[ERROR] Lab session is not authenticated.\n" NC);
@@ -345,6 +372,13 @@ int main(int argc, char **argv) {
     const char *base = strrchr(prog, '/');
     if (base) prog = base + 1;
 
+    /* Check for explicit status command */
+    if ((argc > 1 && strcmp(argv[1], "status") == 0) ||
+        (argc > 2 && strcmp(argv[2], "status") == 0) ||
+        strcmp(prog, "club-status") == 0) {
+        return do_status();
+    }
+
     if (strcmp(prog, "club-gate") == 0 || (argc > 1 && strcmp(argv[1], "gate") == 0)) {
         return do_gate(argc > 1 && strcmp(argv[1], "gate") == 0 ? argc - 1 : argc,
                        argc > 1 && strcmp(argv[1], "gate") == 0 ? argv + 1 : argv);
@@ -358,6 +392,7 @@ int main(int argc, char **argv) {
     printf(WHITE BOLD "IITM Jarvis Linux Club - Lab CLI\n" NC);
     printf("Usage:\n");
     printf("  " CYAN "club-gate [lab_slug]" NC "    Authenticate and unlock lab session\n");
+    printf("  " CYAN "club-gate status" NC "        Check active session authentication state\n");
     printf("  " CYAN "club-submit" NC "             Verify and submit completed lab tasks\n");
     return 0;
 }
