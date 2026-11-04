@@ -21,6 +21,5 @@ done
 # Clean the terminal screen so the gate starts fresh
 clear
 
-# Run the authentication gate immediately
-LAB_SLUG="linux-basics-101"
-club-gate "$LAB_SLUG"
+# Run the authentication gate immediately with login command
+club-gate login

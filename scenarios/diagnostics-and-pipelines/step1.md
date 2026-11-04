@@ -7,24 +7,27 @@ Before executing commands, your terminal environment must authenticate with the 
 ### Tasks:
 
 1. **Authenticate the Terminal**:
-   The terminal prompt to the right will ask for two pieces of information:
-   - **Student ID**: Enter your registered roll number (e.g. `25f3002130`).
-   - **Passkey**: Enter your secure personal passkey found on your club dashboard (`~/labs`).
+   The terminal will open the gate prompt automatically. If you ever need to re-authenticate manually, run:
+   ```bash
+   club-gate login
+   ```
+   *(The lab scenario is auto-detected—you only need to provide your Student Roll and Passkey).*
 
 2. **Check Authentication Status**:
-   If the prompt did not appear automatically or you ever want to check your active session:
+   To inspect your active session:
    ```bash
    club-gate status
    ```
    *Expected Output*:
-   ```json
-   {
-     "student_id": "25f3002130",
-     "lab_slug": "diagnostics-and-pipelines",
-     "mode": "active",
-     "session_token": "...",
-     "authenticated_at": "..."
-   }
+   ```text
+   ==============================================================
+                ACTIVE & AUTHENTICATED LAB SESSION               
+   ==============================================================
+     • Student ID:   25f3002130
+     • Lab Scenario: diagnostics-and-pipelines
+     • Session Mode: active
+     • Gate Status:  UNLOCKED
+   ==============================================================
    ```
    *Explanation*: Confirms you are authenticated in **active mode** (eligible to earn XP upon completion).
 

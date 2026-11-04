@@ -10,6 +10,7 @@
 #define DEFAULT_API_URL "https://jarvis-linux-club.vercel.app"
 #define SESSION_DIR "/root/.jarvis"
 #define SESSION_FILE "/root/.jarvis/session.json"
+#define LAB_SLUG_FILE "/root/.jarvis/lab_slug"
 #define GATE_FILE "/tmp/.jarvis_unlocked"
 
 /* ANSI Colors */
@@ -23,9 +24,29 @@
 #define BOLD "\033[1m"
 #define NC "\033[0m"
 
+static const char *get_api_url(void);
+static char *read_file_contents(const char *path);
+
 static const char *get_api_url(void) {
     const char *env = getenv("API_URL");
     return (env && strlen(env) > 0) ? env : DEFAULT_API_URL;
+}
+
+static char *resolve_lab_slug(const char *arg_slug) {
+    if (arg_slug && strlen(arg_slug) > 0 && strcmp(arg_slug, "login") != 0) {
+        return strdup(arg_slug);
+    }
+    const char *env = getenv("LAB_SLUG");
+    if (env && strlen(env) > 0) {
+        return strdup(env);
+    }
+    char *stored = read_file_contents(LAB_SLUG_FILE);
+    if (stored) {
+        stored[strcspn(stored, "\r\n")] = '\0';
+        if (strlen(stored) > 0) return stored;
+        free(stored);
+    }
+    return strdup("linux-basics-101");
 }
 
 static void ensure_session_dir(void) {
@@ -122,7 +143,16 @@ static void show_spinner(int seconds) {
 }
 
 static int do_gate(int argc, char **argv) {
-    const char *lab_slug = (argc > 1) ? argv[1] : "linux-basics-101";
+    const char *arg = (argc > 1) ? argv[1] : NULL;
+    char *lab_slug = resolve_lab_slug(arg);
+
+    /* Persist scenario slug so subsequent `club-gate login` runs know the lab */
+    ensure_session_dir();
+    FILE *lsf = fopen(LAB_SLUG_FILE, "w");
+    if (lsf) {
+        fprintf(lsf, "%s\n", lab_slug);
+        fclose(lsf);
+    }
 
     /* Clear the terminal so no stray foreground initialization clutter remains */
     if (isatty(STDOUT_FILENO)) {
@@ -145,7 +175,7 @@ static int do_gate(int argc, char **argv) {
         }
         printf(WHITE "Enter Student ID / Roll Number: " NC);
         fflush(stdout);
-        if (!fgets(student_id, sizeof(student_id), stdin)) return 1;
+        if (!fgets(student_id, sizeof(student_id), stdin)) { free(lab_slug); return 1; }
         student_id[strcspn(student_id, "\r\n")] = 0;
         if (strlen(student_id) > 0) break;
     }
@@ -157,7 +187,7 @@ static int do_gate(int argc, char **argv) {
         }
         printf(WHITE "Enter Verification Passkey (~/labs): " NC);
         fflush(stdout);
-        if (!fgets(passkey, sizeof(passkey), stdin)) return 1;
+        if (!fgets(passkey, sizeof(passkey), stdin)) { free(lab_slug); return 1; }
         passkey[strcspn(passkey, "\r\n")] = 0;
         if (strlen(passkey) > 0) break;
     }
@@ -184,6 +214,7 @@ static int do_gate(int argc, char **argv) {
     if (status != 0 || !resp) {
         printf(RED "[ERROR] Failed to reach Jarvis Linux Club server. Check internet connection.\n" NC);
         free(resp);
+        free(lab_slug);
         return 1;
     }
 
@@ -222,6 +253,7 @@ static int do_gate(int argc, char **argv) {
         printf(GREEN BOLD "==============================================================\n" NC);
 
         free(success_val); free(msg_val); free(token_val); free(mode_val); free(name_val); free(resp);
+        free(lab_slug);
         return 0;
     } else {
         printf("\n" RED BOLD "[GATE AUTHENTICATION FAILED]\n" NC);
@@ -229,6 +261,7 @@ static int do_gate(int argc, char **argv) {
         printf(WHITE "Please check your passkey under ~/labs on the club dashboard.\n" NC);
 
         free(success_val); free(msg_val); free(token_val); free(mode_val); free(name_val); free(resp);
+        free(lab_slug);
         return 1;
     }
 }
@@ -256,7 +289,7 @@ static int do_status(void) {
     }
 
     printf("\n" RED BOLD "[STATUS] Session is locked or unauthenticated.\n" NC);
-    printf(WHITE "To authenticate, execute: " CYAN BOLD "club-gate [lab_slug]\n\n" NC);
+    printf(WHITE "To authenticate, execute: " CYAN BOLD "club-gate login\n\n" NC);
     return 1;
 }
 
@@ -379,7 +412,9 @@ int main(int argc, char **argv) {
         return do_status();
     }
 
-    if (strcmp(prog, "club-gate") == 0 || (argc > 1 && strcmp(argv[1], "gate") == 0)) {
+    if (strcmp(prog, "club-gate") == 0 ||
+        (argc > 1 && strcmp(argv[1], "gate") == 0) ||
+        (argc > 1 && strcmp(argv[1], "login") == 0)) {
         return do_gate(argc > 1 && strcmp(argv[1], "gate") == 0 ? argc - 1 : argc,
                        argc > 1 && strcmp(argv[1], "gate") == 0 ? argv + 1 : argv);
     }
@@ -391,7 +426,7 @@ int main(int argc, char **argv) {
     /* Default help message */
     printf(WHITE BOLD "IITM Jarvis Linux Club - Lab CLI\n" NC);
     printf("Usage:\n");
-    printf("  " CYAN "club-gate [lab_slug]" NC "    Authenticate and unlock lab session\n");
+    printf("  " CYAN "club-gate login" NC "         Authenticate and unlock lab session\n");
     printf("  " CYAN "club-gate status" NC "        Check active session authentication state\n");
     printf("  " CYAN "club-submit" NC "             Verify and submit completed lab tasks\n");
     return 0;

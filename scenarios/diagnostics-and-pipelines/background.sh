@@ -17,16 +17,18 @@ else
     curl -fsSL https://jarvis-linux-club.vercel.app/killercoda/setup.sh | bash
 fi
 
-# Point club-gate and club-submit to the compiled binary
+# Point club-gate, club-submit, and club-login to the compiled binary
 ln -sf /usr/local/bin/club-cli /usr/local/bin/club-gate
 ln -sf /usr/local/bin/club-cli /usr/local/bin/club-submit
+ln -sf /usr/local/bin/club-cli /usr/local/bin/club-login
 chmod 755 /usr/local/bin/club-cli
 
-# Secure session directory and clean any leftover plaintext scripts
+# Secure session directory and store the scenario slug
 mkdir -p /root/.jarvis
 chmod 700 /root/.jarvis
+echo "diagnostics-and-pipelines" > /root/.jarvis/lab_slug
+chmod 600 /root/.jarvis/lab_slug
 rm -f /root/.jarvis/*.sh 2>/dev/null || true
 
 # Signal ready for foreground.sh
 touch /tmp/.background_finished
-
