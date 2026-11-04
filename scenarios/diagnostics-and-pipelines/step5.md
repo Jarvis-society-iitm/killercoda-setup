@@ -131,10 +131,23 @@ club-submit
 *Expected Output*:
 ```text
 ==============================================================
-       IITM Jarvis Linux Club - Lab Submission & XP
+        Jarvis Linux Club - Lab Completion Submission
 ==============================================================
-[*] Running local lab validation checks...
-[✔] All validation checks passed!
-[*] Authenticating submission token with Jarvis API...
-[SUCCESS] Lab completed! +5 XP awarded to your Profile!
+Student:  25f3002130
+Lab Slug: diagnostics-and-pipelines
+Mode:     active
+
+[*] Submitting completion to Jarvis Club Leaderboard...
+
+==============================================================
+                  LAB OFFICIALLY COMPLETED!                   
+==============================================================
+Awesome work! Lab completed successfully: +5 XP and +... $ Tokens awarded!
+
+  ★ XP Earned: +5 XP
+  ★ Total XP:  ... XP
+  ★ Club Rank: #...
+
+Check your updated profile at: https://jarvis-linux-club.vercel.app/leaderboard
+==============================================================
 ```
