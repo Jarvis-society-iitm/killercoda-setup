@@ -7,3 +7,4 @@ else
     echo "Terminal is not authenticated. Please complete the login prompt in your terminal."
     exit 1
 fi
+

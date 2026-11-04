@@ -34,3 +34,4 @@ fi
 
 echo "Hands-On Practice 2: Streams & Redirection successfully verified!"
 exit 0
+

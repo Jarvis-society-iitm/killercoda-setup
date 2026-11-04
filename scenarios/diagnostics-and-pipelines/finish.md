@@ -18,3 +18,4 @@ You have successfully completed **Week 1, Session II: Diagnostics, Data Streams 
 Remember to submit your final **Hardware Snapshot Script** (`system_snapshot.txt`) by **Nov 7** to earn full weekly challenge credits!
 
 See you in **Week 2: Permissions, Ownership & Process Management**!
+

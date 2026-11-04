@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
+#include <termios.h>
 
 #define DEFAULT_API_URL "https://jarvis-linux-club.vercel.app"
 #define SESSION_DIR "/root/.jarvis"
@@ -123,6 +124,12 @@ static void show_spinner(int seconds) {
 static int do_gate(int argc, char **argv) {
     const char *lab_slug = (argc > 1) ? argv[1] : "linux-basics-101";
 
+    /* Clear the terminal so no stray foreground initialization clutter remains */
+    if (isatty(STDOUT_FILENO)) {
+        printf("\033[H\033[2J\033[3J");
+        fflush(stdout);
+    }
+
     printf(PURPLE "==============================================================\n" NC);
     printf(WHITE BOLD "       IITM Jarvis Linux Club - Lab Authentication Gate\n" NC);
     printf(PURPLE "==============================================================\n" NC);
@@ -131,17 +138,28 @@ static int do_gate(int argc, char **argv) {
     char student_id[128] = {0};
     char passkey[128] = {0};
 
-    printf(WHITE "Enter Student ID / Roll Number: " NC);
-    if (!fgets(student_id, sizeof(student_id), stdin)) return 1;
-    student_id[strcspn(student_id, "\r\n")] = 0;
+    /* Flush any buffered keystrokes or newlines before reading student ID */
+    while (1) {
+        if (isatty(STDIN_FILENO)) {
+            tcflush(STDIN_FILENO, TCIFLUSH);
+        }
+        printf(WHITE "Enter Student ID / Roll Number: " NC);
+        fflush(stdout);
+        if (!fgets(student_id, sizeof(student_id), stdin)) return 1;
+        student_id[strcspn(student_id, "\r\n")] = 0;
+        if (strlen(student_id) > 0) break;
+    }
 
-    printf(WHITE "Enter Verification Passkey (~/labs): " NC);
-    if (!fgets(passkey, sizeof(passkey), stdin)) return 1;
-    passkey[strcspn(passkey, "\r\n")] = 0;
-
-    if (strlen(student_id) == 0 || strlen(passkey) == 0) {
-        printf(RED "[ERROR] Student ID and Passkey cannot be empty.\n" NC);
-        return 1;
+    /* Read Passkey */
+    while (1) {
+        if (isatty(STDIN_FILENO)) {
+            tcflush(STDIN_FILENO, TCIFLUSH);
+        }
+        printf(WHITE "Enter Verification Passkey (~/labs): " NC);
+        fflush(stdout);
+        if (!fgets(passkey, sizeof(passkey), stdin)) return 1;
+        passkey[strcspn(passkey, "\r\n")] = 0;
+        if (strlen(passkey) > 0) break;
     }
 
     printf(YELLOW "[*] Verifying passkey with Jarvis Linux Club API...\n" NC);

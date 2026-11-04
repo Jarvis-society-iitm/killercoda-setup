@@ -44,3 +44,4 @@ In this step, you will connect processes using pipes (`|`) and learn how to extr
    ```
 
 Click **Verify** once completed!
+

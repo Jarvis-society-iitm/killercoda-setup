@@ -42,3 +42,4 @@ Execute the diagnostics from your terminal:
    ```
 
 Click **Verify** once completed!
+

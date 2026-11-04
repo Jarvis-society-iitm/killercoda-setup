@@ -15,3 +15,4 @@ In **Session II**, you will master:
 
 ### Getting Started:
 Wait a few moments for the sandbox to complete its background setup. Once the prompt appears, authenticate using your Student Roll and Lab Passkey, then click **Start** or proceed to **Step 1**!
+

@@ -18,6 +18,9 @@ for i in {1..20}; do
     sleep 0.5
 done
 
+# Clean the terminal screen so the gate starts fresh
+clear
+
 # Run the authentication gate immediately
 LAB_SLUG="diagnostics-and-pipelines"
 club-gate "$LAB_SLUG"

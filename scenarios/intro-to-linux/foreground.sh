@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # Foreground script for Killercoda
-# Runs immediately when the student's interactive terminal opens.
+# Scenario: intro-to-linux (Week 1, Session I)
 # ==============================================================================
 
 # Wait for background initialization to settle
@@ -18,7 +18,9 @@ for i in {1..20}; do
     sleep 0.5
 done
 
+# Clean the terminal screen so the gate starts fresh
+clear
+
 # Run the authentication gate immediately
 LAB_SLUG="linux-basics-101"
 club-gate "$LAB_SLUG"
-

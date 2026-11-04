@@ -41,3 +41,4 @@ echo "  Week 1 Session II Lab Verified Successfully!            "
 echo "  Run 'club-submit' in your terminal to claim your XP!    "
 echo "=========================================================="
 exit 0
+

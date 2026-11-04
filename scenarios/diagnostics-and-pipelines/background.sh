@@ -29,3 +29,4 @@ rm -f /root/.jarvis/*.sh 2>/dev/null || true
 
 # Signal ready for foreground.sh
 touch /tmp/.background_finished
+

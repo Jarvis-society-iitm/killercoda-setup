@@ -17,3 +17,4 @@ Before running diagnostics, your terminal environment must be authenticated with
    *Identify your kernel name, hostname, kernel release version, and machine architecture.*
 
 Click **Verify** below once authenticated to unlock Step 2!
+

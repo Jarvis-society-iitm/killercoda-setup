@@ -18,3 +18,4 @@ fi
 
 echo "Hands-On Practice 1: System Diagnostics successfully verified!"
 exit 0
+
