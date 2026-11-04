@@ -1,0 +1,55 @@
+{
+  "title": "Week 1: Diagnostics, Data Streams & Pipelines",
+  "description": "Session II: Commanding the Linux Environment. Master system health diagnostics (uname, uptime, lscpu, lsblk, df, free), streams (stdin, stdout, stderr), redirection (> , >>, <, 2>, 2>&1), pipelines (|), and the system synthesis challenge. Verified by IITM Jarvis Linux Club.",
+  "difficulty": "Beginner",
+  "time": "35 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Welcome & Club Authentication",
+        "text": "step1.md",
+        "verify": "step1-verify.sh"
+      },
+      {
+        "title": "Hands-On Practice 1: System Health & Diagnostics",
+        "text": "step2.md",
+        "verify": "step2-verify.sh"
+      },
+      {
+        "title": "Hands-On Practice 2: Data Streams & Redirection",
+        "text": "step3.md",
+        "verify": "step3-verify.sh"
+      },
+      {
+        "title": "Hands-On Practice 3: Pipelines & Linux Manuals",
+        "text": "step4.md",
+        "verify": "step4-verify.sh"
+      },
+      {
+        "title": "Live Lab Execution & Synthesis Challenge",
+        "text": "step5.md",
+        "verify": "step5-verify.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh",
+      "foreground": "foreground.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "club-cli.c",
+          "target": "/tmp/",
+          "chmod": "600"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
