@@ -1,0 +1,55 @@
+{
+  "title": "Week 2: Packages, Permissions & Access Control",
+  "description": "Session I: Provisioning & Protection in Linux. Master APT package supply chains (update, upgrade, install, remove, search, show), inspect permission strings with ls -l and ls -ld, fix 'Permission denied' errors, apply symbolic chmod (u, g, o, a) and octal shortcuts (644, 755, 600, 700), and build shared/restricted directory structures. Verified by IITM Jarvis Linux Club.",
+  "difficulty": "Beginner",
+  "time": "40 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Welcome & Club Authentication",
+        "text": "step1.md",
+        "verify": "step1-verify.sh"
+      },
+      {
+        "title": "Task 1: Package Provisioning with APT",
+        "text": "step2.md",
+        "verify": "step2-verify.sh"
+      },
+      {
+        "title": "Task 2: Decoding ls -l & Identity Inspection",
+        "text": "step3.md",
+        "verify": "step3-verify.sh"
+      },
+      {
+        "title": "Task 3: Symbolic Permission Management with chmod",
+        "text": "step4.md",
+        "verify": "step4-verify.sh"
+      },
+      {
+        "title": "Task 4: Octal Shortcuts & Directory Access Challenge",
+        "text": "step5.md",
+        "verify": "step5-verify.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh",
+      "foreground": "foreground.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "club-cli.c",
+          "target": "/tmp/",
+          "chmod": "600"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
