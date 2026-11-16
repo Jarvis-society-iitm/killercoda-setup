@@ -1,0 +1,55 @@
+{
+  "title": "Week 2: Ownership, Environment & Terminal Editing",
+  "description": "Session II: System Customization and Control. Master ownership management (chown, chgrp, recursive -R), explore core environment variables ($USER, $HOME, $SHELL, $PATH), export and persist system variables in ~/.bashrc, extend the global executable search path, and navigate terminal text editing in Nano and Vim modal editing (:wq, :q!, dd, u). Verified by IITM Jarvis Linux Club.",
+  "difficulty": "Beginner",
+  "time": "40 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Welcome & Club Authentication",
+        "text": "step1.md",
+        "verify": "step1-verify.sh"
+      },
+      {
+        "title": "Task 1: Ownership Management with chown & chgrp",
+        "text": "step2.md",
+        "verify": "step2-verify.sh"
+      },
+      {
+        "title": "Task 2: Environment Variables ($USER, $HOME, $PATH, printenv)",
+        "text": "step3.md",
+        "verify": "step3-verify.sh"
+      },
+      {
+        "title": "Task 3: Persistent Configuration in ~/.bashrc & Extending $PATH",
+        "text": "step4.md",
+        "verify": "step4-verify.sh"
+      },
+      {
+        "title": "Task 4: Terminal Text Editing with Nano & Vim",
+        "text": "step5.md",
+        "verify": "step5-verify.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh",
+      "foreground": "foreground.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "club-cli.c",
+          "target": "/tmp/",
+          "chmod": "600"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
