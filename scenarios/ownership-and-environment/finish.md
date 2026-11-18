@@ -26,3 +26,4 @@ To submit your lab completion and update the club leaderboard:
 club-submit
 ```
 Once submitted, return to the **Jarvis Linux Club Portal** to celebrate your achievement and view your updated profile standing!
+

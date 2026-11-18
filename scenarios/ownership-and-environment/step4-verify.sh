@@ -43,3 +43,4 @@ fi
 
 echo "Task 3 (Persistent ~/.bashrc & Extended \$PATH) verified successfully!"
 exit 0
+

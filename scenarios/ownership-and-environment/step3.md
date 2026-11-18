@@ -56,3 +56,4 @@ To read a variable, prepend the `$` sign (e.g. `echo $USER`).
    ```
 
 Click **Check** below to validate your environment variables setup.
+

@@ -58,3 +58,4 @@ export PATH="$PATH:$HOME/scripts"
    ```
 
 Click **Check** below to verify that your `$PATH` extension and script work globally.
+

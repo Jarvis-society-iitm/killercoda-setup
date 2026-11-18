@@ -36,3 +36,4 @@ fi
 
 echo "Task 2 (Environment Variables) verified successfully!"
 exit 0
+

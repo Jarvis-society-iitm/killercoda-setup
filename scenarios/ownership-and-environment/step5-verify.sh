@@ -26,3 +26,4 @@ fi
 
 echo "Task 4 (Terminal Text Editing with Nano & Vim) verified successfully!"
 exit 0
+

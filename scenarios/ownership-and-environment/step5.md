@@ -66,3 +66,4 @@ When complete, click **Check** below to validate your files. Once all checks pas
 club-submit
 ```
 in your terminal to record your completion on the **Jarvis Linux Club Leaderboard**!
+

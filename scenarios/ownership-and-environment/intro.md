@@ -25,3 +25,4 @@ Welcome to the interactive terminal practical for **Week 2: Packages, Permission
 Every interactive sandbox lab connects directly to the **IITM Jarvis Linux Club Portal** via the secure `club-gate` binary.
 
 To claim your XP and track progress, proceed to the first step and authenticate your terminal.
+
