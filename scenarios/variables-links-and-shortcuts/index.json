@@ -1,0 +1,55 @@
+{
+  "title": "Week 3: Shell Variables, Links & Shortcuts",
+  "description": "Session I: Shell vs Environment Variables, Customizing Prompt (PS1), Inodes, Hard vs Symbolic Links, and Readline Shortcuts. Verified by IITM Jarvis Linux Club.",
+  "difficulty": "Beginner",
+  "time": "40 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Welcome & Club Authentication",
+        "text": "step1.md",
+        "verify": "step1-verify.sh"
+      },
+      {
+        "title": "Task 1: Shell vs Environment Variables & Child Shells",
+        "text": "step2.md",
+        "verify": "step2-verify.sh"
+      },
+      {
+        "title": "Task 2: Customizing and Coloring Your Prompt ($PS1)",
+        "text": "step3.md",
+        "verify": "step3-verify.sh"
+      },
+      {
+        "title": "Task 3: Inodes and Hard vs. Symbolic Links",
+        "text": "step4.md",
+        "verify": "step4-verify.sh"
+      },
+      {
+        "title": "Task 4: Fast Navigation & Readline Shortcuts",
+        "text": "step5.md",
+        "verify": "step5-verify.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh",
+      "foreground": "foreground.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "club-cli.c",
+          "target": "/tmp/",
+          "chmod": "600"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
