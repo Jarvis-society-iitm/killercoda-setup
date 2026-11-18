@@ -1,14 +1,18 @@
 # Step 2: Shell vs Environment Variables & Child Shells
 
 In Linux, think of variables like sticky notes:
-- **Shell Variable**: A note stuck to your current terminal only. When you open a child shell or run a script, it cannot see this variable.
-- **Environment Variable**: An exported note. Every child program or subshell receives an exact copy.
+- **Variable**: A named container holding a piece of text or data.
+- **Shell Variable**: A note stuck to your current terminal only. When you open a new window or run a program/script, it cannot see it.
+- **Environment Variable**: A note whose copy is handed to every program the shell starts (its child programs).
 
-### Fundamental Rules:
-- **Assignment**: `NAME="value"` (no spaces around the `=` sign!).
-- **Expansion / Reading**: `$NAME` tells the shell to retrieve the value.
-- **Exporting**: `export NAME` promotes a shell variable to an environment variable.
-- **Removing**: `unset NAME` removes the variable completely from memory.
+### Core Syntax:
+- **Create**: `NAME="value"` (no spaces around the `=` sign!).
+- **Read**: `echo $NAME` (`$` means "give me the value").
+- **Remove**: `unset NAME` removes the variable from memory.
+- **Export**: `export NAME` promotes a shell variable to an environment variable.
+- **Inspect**:
+  - `printenv` (or `env`): Shows exported environment variables only.
+  - `set`: Shows everything (shell variables, environment variables, and functions).
 
 ---
 
@@ -19,43 +23,47 @@ In Linux, think of variables like sticky notes:
    mkdir -p /root/w3s1_lab && cd /root/w3s1_lab
    ```
 
-2. **Demonstrate Shell Variable Isolation**:
-   Create a shell variable:
+2. **Create a Shell Variable & Test Child Shell Isolation**:
+   Create a shell variable named `CITY`:
    ```bash
-   MY_SECRET="OlympusVault2026"
-   echo $MY_SECRET
+   CITY="London"
+   echo $CITY
    ```
-   Now test whether a child subshell can read it:
+   Now ask a child subshell to read it:
    ```bash
-   bash -c 'echo "Child sees: $MY_SECRET"'
+   bash -c 'echo $CITY'
    ```
-   Notice that the child shell prints a blank value!
+   Notice that the child shell prints a blank line! The child shell cannot see shell variables.
 
-3. **Promote to an Environment Variable with `export`**:
-   Export `MY_SECRET` so child processes can inherit it:
+3. **Make It an Environment Variable with `export`**:
+   Export `CITY` so child processes can inherit it:
    ```bash
-   export MY_SECRET
+   export CITY
    ```
-   Now test again with the child subshell:
+   Now ask the child subshell again:
    ```bash
-   bash -c 'echo "Child sees: $MY_SECRET"'
+   bash -c 'echo $CITY'
    ```
-   Now the child process successfully reads `OlympusVault2026`!
+   Now the child shell prints `London`!
 
-4. **Inspect `printenv` vs `set`**:
-   - `printenv` (or `env`) displays exported environment variables only.
-   - `set` displays everything: shell variables, environment variables, and shell functions.
-   
-   Capture your exported variable with `printenv` and save it to a verification file:
+4. **Verify Export with `printenv`**:
+   Verify that `CITY` appears in `printenv` and save it to a verification file:
    ```bash
-   printenv MY_SECRET > /root/w3s1_lab/exported_var.txt
+   printenv CITY > /root/w3s1_lab/city_var.txt
    ```
 
-5. **Create a Managed Club Variable**:
-   Create and export a variable named `CLUB_COHORT`:
+5. **Clean Up with `unset`**:
+   Remove the variable:
    ```bash
-   export CLUB_COHORT="Jarvis-Week3-Foundations"
-   echo "$CLUB_COHORT" > /root/w3s1_lab/cohort.txt
+   unset CITY
+   echo "CITY is now: '$CITY'"
+   ```
+
+6. **Create Club Session Variable**:
+   Create and export a session variable `SESSION_NAME="Variables-and-Links"`:
+   ```bash
+   export SESSION_NAME="Variables-and-Links"
+   printenv SESSION_NAME > /root/w3s1_lab/session_var.txt
    ```
 
 Click **Check** below to verify your variables setup.

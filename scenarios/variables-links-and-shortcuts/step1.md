@@ -11,3 +11,4 @@ Every student lab session in the Jarvis Linux Club is verified cryptographically
    club-gate login
    ```
 3. Once you see `[SUCCESS] Verified!`, click the **Check** button below to complete this step.
+

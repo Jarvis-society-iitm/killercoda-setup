@@ -4,15 +4,10 @@ if [ ! -f /tmp/.jarvis_unlocked ]; then
     exit 1
 fi
 
-if [ ! -f /root/w3s1_lab/history_sample.txt ]; then
-    echo "File /root/w3s1_lab/history_sample.txt not found. Please run: history | tail -n 15 > /root/w3s1_lab/history_sample.txt"
+if [ ! -f /root/w3s1_lab/readline_done.txt ]; then
+    echo "File /root/w3s1_lab/readline_done.txt not found. Please complete the Readline practice and run: echo 'Readline practice completed' > /root/w3s1_lab/readline_done.txt"
     exit 1
 fi
 
-if [ ! -f /root/w3s1_lab/hard_link.txt ] || [ ! -L /root/w3s1_lab/soft_link.txt ]; then
-    echo "Links in /root/w3s1_lab are missing or incomplete."
-    exit 1
-fi
-
-echo "Task 4 (Fast Navigation & Readline Shortcuts) verified successfully!"
+echo "Task 4 (Readline Shortcuts) verified successfully!"
 exit 0

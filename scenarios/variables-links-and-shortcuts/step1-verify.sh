@@ -6,3 +6,4 @@ else
     echo "Terminal is not authenticated. Please run 'club-gate login' in your terminal."
     exit 1
 fi
+

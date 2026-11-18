@@ -23,3 +23,4 @@ clear
 
 # Run the authentication gate immediately with login command
 club-gate login
+
