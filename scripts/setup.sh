@@ -21,6 +21,7 @@ rm -f /tmp/club-cli.c
 # 4. Create symlinks for both commands
 ln -sf /usr/local/bin/club-cli /usr/local/bin/club-gate
 ln -sf /usr/local/bin/club-cli /usr/local/bin/club-submit
+ln -sf /usr/local/bin/club-cli /usr/local/bin/club-login
 chmod 755 /usr/local/bin/club-cli
 
 # 5. Clean up any leftover .sh test or verification scripts

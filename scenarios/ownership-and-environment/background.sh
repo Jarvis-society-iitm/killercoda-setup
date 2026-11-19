@@ -6,8 +6,9 @@
 set -e
 
 # Update packages and install dependencies
-apt-get update -qq >/dev/null 2>&1
-apt-get install -y -qq gcc curl jq sudo nano vim >/dev/null 2>&1
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -qq >/dev/null 2>&1 || true
+apt-get install -y -qq gcc curl jq sudo nano vim >/dev/null 2>&1 || true
 
 # Create demo student user and developer group for ownership tasks
 groupadd -f devs 2>/dev/null || true

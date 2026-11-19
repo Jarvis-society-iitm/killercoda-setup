@@ -6,8 +6,9 @@
 set -e
 
 # Update packages and install dependencies
-apt-get update -qq >/dev/null 2>&1
-apt-get install -y -qq gcc curl jq tree sudo tldr man-db >/dev/null 2>&1
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -qq >/dev/null 2>&1 || true
+apt-get install -y -qq gcc curl jq tree sudo man-db >/dev/null 2>&1 || true
 
 # Compile the secure stripped CLI binary
 if [ -f "/tmp/club-cli.c" ]; then
@@ -22,6 +23,17 @@ ln -sf /usr/local/bin/club-cli /usr/local/bin/club-gate
 ln -sf /usr/local/bin/club-cli /usr/local/bin/club-submit
 ln -sf /usr/local/bin/club-cli /usr/local/bin/club-login
 chmod 755 /usr/local/bin/club-cli
+
+# Provide a lightweight tldr helper for practice if requested
+cat << 'TLDR_EOF' > /usr/local/bin/tldr
+#!/usr/bin/env bash
+if [ "$1" = "df" ]; then
+    echo -e "df\n\nGive an overview of the filesystem disk space usage.\nMore information: https://www.gnu.org/software/coreutils/df.\n\n- Display all filesystems and their disk usage in human-readable units:\n    df -h\n\n- Display total disk usage across all filesystems:\n    df -h --total"
+    exit 0
+fi
+man -f "$@" 2>/dev/null || man "$@"
+TLDR_EOF
+chmod 755 /usr/local/bin/tldr
 
 # Secure session directory and store the scenario slug
 mkdir -p /root/.jarvis
