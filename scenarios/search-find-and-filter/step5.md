@@ -1,13 +1,21 @@
 # Task 4: Combining `find`, `xargs`, and `grep`
 
-`find` prints file paths, while `grep` expects file names as arguments. `xargs` bridges the two.
+`find` prints a list of **file paths**, whereas `grep` needs file paths as **command-line arguments**. `xargs` acts as the bridge: it reads lines from a pipe and passes them as arguments to the next command.
 
-Notice that `/root/w4s1_lab/logs/my app.log` has a **space** in its filename! Using plain `xargs` would split `my` and `app.log` into two broken paths.
+### The Space-in-Filename Trap
+In `/root/w4s1_lab/logs/`, there is a file named `my app.log` (with a space!).
 
-### Task:
-Use `find ... -print0` with `xargs -0` and `grep -E` to search **all** `.log` files under `/root/w4s1_lab` for `404` or `500`, and save the output to `/root/w4s1_lab/critical_hits.txt`:
-```bash
-find /root/w4s1_lab -type f -name '*.log' -print0 | xargs -0 grep -E '(404|500)' > /root/w4s1_lab/critical_hits.txt
-```
+1. **See what goes wrong with plain `xargs`**:
+   ```bash
+   find /root/w4s1_lab -type f -name '*.log' | xargs grep -E '(404|500)'
+   ```
+   Look at the error: `xargs` split `my app.log` into `my` and `app.log`, causing `No such file or directory`!
 
-Inspect `/root/w4s1_lab/critical_hits.txt` to confirm matches from `access.log`, `error.log`, and `my app.log` all appear cleanly, then click **Check**!
+2. **Fix it safely with `-print0` and `-0`**:
+   `-print0` tells `find` to separate filenames with a null character instead of a space/newline, and `xargs -0` reads that null-separated list safely:
+   ```bash
+   find /root/w4s1_lab -type f -name '*.log' -print0 | xargs -0 grep -E '(404|500)' | tee /root/w4s1_lab/critical_hits.txt
+   ```
+   *Expected Output*: All 5 matching `404` and `500` lines across `access.log`, `error.log`, **and** `my app.log`, each prefixed with its file path!
+
+Click **Check** when done!
