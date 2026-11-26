@@ -1,0 +1,55 @@
+{
+  "title": "Week 4: Search, Find, and Filter",
+  "description": "Session I: Searching inside files with grep, pattern matching with basic and extended regular expressions (grep -E), locating files with find, and combining find, xargs, and grep. Verified by IITM Jarvis Linux Club.",
+  "difficulty": "Beginner",
+  "time": "35 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Welcome & Club Authentication",
+        "text": "step1.md",
+        "verify": "step1-verify.sh"
+      },
+      {
+        "title": "Task 1: Basic Log Filtering with grep",
+        "text": "step2.md",
+        "verify": "step2-verify.sh"
+      },
+      {
+        "title": "Task 2: Pattern Matching with Regex & grep -E",
+        "text": "step3.md",
+        "verify": "step3-verify.sh"
+      },
+      {
+        "title": "Task 3: Locating Files with find",
+        "text": "step4.md",
+        "verify": "step4-verify.sh"
+      },
+      {
+        "title": "Task 4: Combining find, xargs, and grep",
+        "text": "step5.md",
+        "verify": "step5-verify.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh",
+      "foreground": "foreground.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "club-cli.c",
+          "target": "/tmp/",
+          "chmod": "600"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
